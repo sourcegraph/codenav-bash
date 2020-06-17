@@ -28,7 +28,11 @@
     "serve": "npm run symlink-package && parcel serve --no-hmr --out-file dist/codenav-bash.js src/codenav-bash.ts",
     "watch:typecheck": "tsc -p tsconfig.json -w",
     "watch:build": "tsc -p tsconfig.dist.json -w",
-    "sourcegraph:prepublish": "npm run typecheck && npm run build"
+    "sourcegraph:prepublish": "npm run typecheck && npm run build",
+    "test": "nyc --reporter=lcov mocha '**/*.test.ts'",
+    "pre:test": "cp hacks/tree-sitter-test.js ./node_modules/web-tree-sitter/tree-sitter.js",
+    "pre:localhost": "cp hacks/tree-sitter-localhost.js ./node_modules/web-tree-sitter/tree-sitter.js",
+    "pre:publish": "cp hacks/tree-sitter-gcp.js ./node_modules/web-tree-sitter/tree-sitter.js"
   },
   "browserslist": [
     "last 1 Chrome versions",
@@ -39,11 +43,30 @@
   "devDependencies": {
     "@sourcegraph/tsconfig": "^4.0.0",
     "@sourcegraph/tslint-config": "^13.4.0",
+    "@types/chai": "^4.2.11",
+    "@types/mocha": "^7.0.2",
+    "@types/mock-require": "^2.0.0",
+    "@types/node": "^13.9.0",
+    "chai": "^4.2.0",
+    "isomorphic-fetch": "^2.2.1",
     "lnfs-cli": "^2.1.0",
     "mkdirp": "^1.0.3",
+    "mocha": "^7.2.0",
+    "nyc": "^15.0.1",
     "parcel-bundler": "^1.12.4",
     "sourcegraph": "^23.1.0",
+    "ts-node": "^8.10.1",
     "tslint": "^6.0.0",
     "typescript": "^3.8.3"
+  },
+  "dependencies": {
+    "@sourcegraph/extension-api-stubs": "^1.1.0",
+    "babel-polyfill": "^6.26.0",
+    "mock-require": "^3.0.3",
+    "node": "^13.10.1",
+    "path-browserify": "^1.0.1",
+    "tagged-template-noop": "^2.1.1",
+    "tree-sitter": "^0.16.0",
+    "web-tree-sitter": "^0.16.2"
   }
 }
